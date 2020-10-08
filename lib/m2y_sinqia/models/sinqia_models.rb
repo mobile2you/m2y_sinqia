@@ -1,0 +1,1 @@
+require_relative 'sinqia_model'
