@@ -1,13 +1,33 @@
 require "m2y_sinqia"
 
 
+cpf = "98757746375"
 
-a = M2ySinqia::SinqiaAccount.new("F4190B60-CB07-07C6-7739-2EF70E1B01B7", "B35E1B8F-2C00-BD24-036A-EEBADDBE95AF", "prod")
+a = M2ySinqia::SinqiaBank.new("ws.mobile2you", "z1x2c3v$B%N&", "hml")
+p a.getBanks
+
+a = M2ySinqia::SinqiaIndividual.new("ws.mobile2you", "z1x2c3v$B%N&", "hml")
+account = a.findPerson(cpf)
+puts account
+
+a = M2ySinqia::SinqiaAccount.new("ws.mobile2you", "z1x2c3v$B%N&", "hml")
+nrClient = account.nrClient
+account = a.getAccounts(account.nrClient)
+p account
+
+cdt_params = {:cdCta=> account.cdCta, :nrAgen=> account.nrAgen}
+
+p cdt_params
+
+p a.findAccount(cdt_params)
+
+cdt_params = {:cdCta=> account.cdCta, :nrAgen=> account.nrAgen, dtIni: 20190101, dtFin: 20201012}
+
+p a.getTransactions(cdt_params)
 
 
+cdt_params = {:cdCta=> account.cdCta, :nrAgen=> account.nrAgen, nrCliente: nrClient}
 
-# cdt_params = {:name=>"dsdsadasdsa", :type=>"PF", :birthDate=>"2006-05-04", :document=>"03631221843", :email=>"caiolopes@gmail.com", :motherName=>"cadsadas", :fatherName=>nil, :idNationality=>1, :idProfession=>"2", :idNumber=>"323232", :issuingDateIdentity=>"2020-05-04", :incomeValue=>22222000.0, :idBusinessSource=>1, :idProduct=>1, :isPep=>false, :dueDate=>10, :phone=>{:idPhoneType=>18, :areaCode=>"011", :number=>"971806013"}, :address=>{:street=>"Alameda Ministro Rocha Azevedo", :number=>11, :complement=>"11", :neighborhood=>"Cerqueira Cesar", :city=>"Sao Paulo", :federativeUnit=>"SP", :country=>"Brasil", :idAddressType=>1, :mailingAddress=>true, :zipCode=>"01410000"}, :termsAndConditionsTokens=>nil, :deviceIdentification=>{:fingerprint=>"5eb07e5dfc402b3a556f9d7c"}}
+a = M2ySinqia::SinqiaTransfer.new("ws.mobile2you", "z1x2c3v$B%N&", "hml")
+p a.getBankTransfers(cdt_params)
 
-
-
-p a.getAccounts("70A44589-B636-5452-14F3-E53604341E34")

@@ -5,18 +5,29 @@ module M2ySinqia
   PRODUCTION = "prd"
 
   #urls
-  URL_HML = "https://dev.softpartech.com.br/BJ08M01/API"
-  URL_PRD = "https://dev.softpartech.com.br/BJ08M01/API"
+  URL_HML = "https://dev.softpartech.com.br"
+  URL_PRD = "https://dev.softpartech.com.br"
 
   ### Paths
 
   #account
-  ACCOUNT_PATH = "v1/accounts/"
+  
   DEPOSIT_PATH = "v1/accounts/deposits"
   PAYMENT_PATH = "v1/payments"
 
   STATEMENT = "/statement"
   WITHDRAW = "/withdraw"
 
+  BANKS_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102A1/listarBancos"
+  ACCOUNT_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102M/obterContas"
+  USER_PATH = "/API/BJ08M01/user"
+  INDIVIDUAL_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0101L/buscaDadosCliente"
+  CUSTOMERS_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0107A/obterClientes"
+  EXTRACT_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0101C/listaLancamentos"
+  RECEIPTS_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0101M/obterComprovantes"
+  TRANSFER_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0101K/efetuaLancamentoTransferencia"
+
+  ADD_FAV_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102O/manutencaoCadastrarFavorecido"
+  CHECK_FAV_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102O/manutencaoListarFavorecidos"
 
 end

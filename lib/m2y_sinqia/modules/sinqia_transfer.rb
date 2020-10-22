@@ -1,53 +1,66 @@
 module M2ySinqia
 
-	class SinqiaTransfer < SinqiaModule
+  class SinqiaTransfer < SinqiaModule
 
-        def initialize(access_key, secret_key, env)
-            startModule(access_key, secret_key, env)
-	     end
-
-
-		def bankTransfers(body)
-			
-            #fix cdt_params
-            sinqia_body = {}
-            sinqia_body[:externalIdentifier] = rand(1..9999)
-            sinqia_body[:currency] = "BRL"
-            sinqia_body[:totalAmount] = body[:value]
-            sinqia_body[:withdrawInfo] = {
-                withdrawType: "BankTransfer",
-                bankTransfer: {
-                    bankDestination: body[:beneficiary][:bankId],
-                    branchDestination: body[:beneficiary][:agency],
-                    accountDestination: [body[:beneficiary][:account], body[:beneficiary][:accountDigit]].join(""),
-                	taxIdentifier: {
-                    	country: "BRA",
-                    	taxId: body[:beneficiary][:docIdCpfCnpjEinSSN]
-                	},
-		            personType: "PERSON",
-        		    name: body[:beneficiary][:name],
-            	    accountTypeDestination: "1"
-	            }
-            }
-            puts sinqia_body
-
-			id = body[:idOriginAccount]
-			int_amount = (body[:value].divmod 1)[0].to_s
-			sinqia_hash = [int_amount, id, body[:beneficiary][:bankId], body[:beneficiary][:agency], body[:beneficiary][:account], body[:beneficiary][:accountDigit]].join("")
+    def initialize(access_key, secret_key, env)
+      startModule(access_key, secret_key, env)
+    end
 
 
-			response = @request.post(@url + ACCOUNT_PATH + id.to_s + WITHDRAW, sinqia_body, sinqia_hash)
-			transferResponse = SinqiaModel.new(response)
-			
-            if transferResponse && transferResponse.data
-                transferResponse.id = transferResponse.data["transactionId"]
-                transferResponse.statusCode = 200
-                transferResponse.transactionCode = transferResponse.data["transactionId"]
-                # transferResponse.content = transferResponse
-            end
-            transferResponse
-		end
+    def bankTransfers(body, is_ted)
+      if !checkFav(body)
+        addFav(body)
+      end
+
+      #fix cdt_params
+      sinqia_body = {}
+      sinqia_body[:idTitul] = 'C'
+
+      sinqia_body[:cdCta] = body[:cdCta]
+      sinqia_body[:nrAgen] = body[:nrAgen]
+      sinqia_body[:vlLanc] = body[:value]
+      sinqia_body[:dtLanc] = Time.now.strftime("%Y%m%d")
+      sinqia_body[:tpTransf] = is_ted ? 2 : 3
+      sinqia_body[:tpCtaFav] = 'CC'
+      sinqia_body[:nrSeqDes] = 0
+      sinqia_body[:cdOrigem] = 24556
+      sinqia_body[:nrDocCre] = 9
+      sinqia_body[:cdFin] = 1
+      sinqia_body[:nrSeq] = 0
+      sinqia_body[:dsHist] = ''
+      sinqia_body[:dsHistC] = ''
+      sinqia_body[:nrBcoDes] = body[:beneficiary][:bankId]
+      sinqia_body[:nrCpfCnpj] = body[:beneficiary][:docIdCpfCnpjEinSSN]
+      sinqia_body[:nrAgeDes] = body[:beneficiary][:agency]
+      sinqia_body[:nrCtaDes] = body[:beneficiary][:account]
+      sinqia_body[:nmFavore] = body[:beneficiary][:name]
+      sinqia_body[:nrInst] = getInstitution
+
+      puts sinqia_body
+
+      response = @request.post(@url + TRANSFER_PATH, sinqia_body)
+
+      puts response
+      transferResponse = SinqiaModel.new(response)
+
+      if transferResponse && transferResponse.efetuaLancamentoTransferencia == 0
+        transferResponse.id = Time.now.to_i
+        transferResponse.statusCode = 200
+        transferResponse.transactionCode = Time.now.to_i
+        # transferResponse.content = transferResponse
+      end
+      transferResponse
+    end
 
 
-	end
+    def getBankTransfers(params)
+      params[:nrSeq] = 0
+      params[:nrInst] = getInstitution
+      params[:nrPrazo] = 120
+      params[:tpComprovante] = 1
+      response = @request.post(@url + RECEIPTS_PATH, params)
+      puts response
+    end
+
+  end
 end
