@@ -16,7 +16,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-test.rb
+test_bkp.rb
 transfer.rb
 
 ## Specific to RubyMotion:

@@ -59,7 +59,14 @@ module M2ySinqia
       params[:nrPrazo] = 120
       params[:tpComprovante] = 1
       response = @request.post(@url + RECEIPTS_PATH, params)
-      puts response
+      SinqiaModel.new(response)
+    end
+
+    def findReceipt(params)
+      params[:nrSeq] = 0
+      params[:nrInst] = getInstitution
+      response = @request.post(@url + FIND_RECEIPTS_PATH, params)
+      SinqiaModel.new(response)
     end
 
   end
