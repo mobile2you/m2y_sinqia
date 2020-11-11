@@ -6,7 +6,7 @@ module M2ySinqia
 
   #urls
   URL_HML = "https://dev.softpartech.com.br"
-  URL_PRD = "https://dev.softpartech.com.br"
+  URL_PRD = "http://191.232.247.11:8090"
 
   ### Paths
 
