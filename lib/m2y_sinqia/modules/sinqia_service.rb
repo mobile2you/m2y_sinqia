@@ -4,6 +4,7 @@ module M2ySinqia
 
     def initialize(access_key, secret_key, env)
       startModule(access_key, secret_key, env)
+      @env = env
     end
 
     def p2pTransfer(body)
@@ -28,9 +29,9 @@ module M2ySinqia
       sinqia_body[:nrSeq] = 0
       sinqia_body[:dsHist] = ''
       sinqia_body[:dsHistC] = ''
-      sinqia_body[:nrBcoDes] = body[:beneficiary][:bankId]
+      sinqia_body[:nrBcoDes] = get_bank
       sinqia_body[:nrCpfCnpj] = body[:beneficiary][:docIdCpfCnpjEinSSN]
-      sinqia_body[:nrAgeDes] = body[:beneficiary][:agency]
+      sinqia_body[:nrAgeDes] = 1
       sinqia_body[:nrCtaDes] = body[:beneficiary][:account]
       sinqia_body[:nmFavore] = body[:beneficiary][:name]
       sinqia_body[:nrInst] = getInstitution
@@ -52,7 +53,15 @@ module M2ySinqia
     end
 
 
-
+    def get_bank
+      if SinqiaHelper.homologation?(@env)
+        BANK_ID_PROD
+      elsif SinqiaHelper.production?(@env)
+        BANK_ID_HML
+      else
+        BANK_ID_DEV
+      end
+    end
 
   end
 end

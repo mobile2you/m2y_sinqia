@@ -3,10 +3,18 @@ module M2ySinqia
   #envs
   HOMOLOGATION = "hml"
   PRODUCTION = "prd"
+  DEVELOPMENT = "dev"
+
 
   #urls
-  URL_HML = "https://dev.softpartech.com.br"
+  URL_DEV = "https://dev.softpartech.com.br"
+  URL_HML = "http://191.232.247.11:8090"
   URL_PRD = "http://191.232.247.11:8090"
+
+  #banks
+  BANK_ID_DEV = 1422
+  BANK_ID_HML = 1422
+  BANK_ID_PROD = 1422
 
   ### Paths
 

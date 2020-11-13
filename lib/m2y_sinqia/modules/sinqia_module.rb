@@ -4,7 +4,14 @@ module M2ySinqia
 
     def startModule(access_key, secret_key, env)
       @request = SinqiaRequest.new(access_key, secret_key)
-      @url = SinqiaHelper.homologation?(env) ? URL_HML : URL_PRD
+      @url =
+      if SinqiaHelper.homologation?(env)
+        @url = URL_HML
+      elsif SinqiaHelper.production?(env)
+        @url = URL_PRD
+      else
+        @url = URL_DEV
+      end
     end
 
     def generateResponse(input)
@@ -34,17 +41,18 @@ module M2ySinqia
       sinqia_body[:nrInst] = getInstitution
       sinqia_body
     end
-    
+
     def addFav(body)
       sinqia_body = sinqiaBody(body)
       response = @request.post(@url + ADD_FAV_PATH, sinqia_body)
+      puts response
     end
 
     def checkFav(body)
       sinqia_body = sinqiaBody(body)
       sinqia_body[:tpFiltro] = 1
       response = @request.post(@url + CHECK_FAV_PATH, sinqia_body)
-      # puts response
+      puts response
       if response["listaFavorecidos"].nil?
         false
       else
