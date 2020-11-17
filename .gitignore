@@ -18,6 +18,7 @@
 
 test_bkp.rb
 transfer.rb
+documents.rb
 
 ## Specific to RubyMotion:
 .dat*
