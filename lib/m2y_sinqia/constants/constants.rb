@@ -9,7 +9,7 @@ module M2ySinqia
   #urls
   URL_DEV = "https://dev.softpartech.com.br"
   URL_HML = "http://191.232.247.11:8090"
-  URL_PRD = "http://191.232.247.11:8090"
+  URL_PRD = "http://20.195.186.187:8090"
 
   #banks
   BANK_ID_DEV = 1422
