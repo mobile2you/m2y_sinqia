@@ -19,8 +19,9 @@ module M2ySinqia
     end
 
     def getInstitution
-      response = @request.get(@url + USER_PATH)
-      SinqiaModel.new(response).nrInst
+      # response = @request.get(@url + USER_PATH)
+      # SinqiaModel.new(response).nrInst
+      INSTITUTION_ID
     end
 
 

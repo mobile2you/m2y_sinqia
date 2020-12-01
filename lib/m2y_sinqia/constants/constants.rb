@@ -15,7 +15,7 @@ module M2ySinqia
   BANK_ID_DEV = 1422
   BANK_ID_HML = 1422
   BANK_ID_PROD = 1422
-
+  INSTITUTION_ID = 1422
   ### Paths
 
   #account
