@@ -32,10 +32,12 @@ module M2ySinqia
     def getTransactions(params)
       params[:nrSeq] = 0
       params[:nrInst] = getInstitution
-      response = @request.post(@url + EXTRACT_PATH, params)
-
-      transactions = response["consultaLancamento"]
-
+      if !params[:page].nil? && params[:page] > 0
+        transactions = []
+      else
+        response = @request.post(@url + EXTRACT_PATH, params)
+        transactions = response["consultaLancamento"]
+      end
       # fixing cdt_fields
       if !transactions.nil?
         transactions.each do |transaction|
