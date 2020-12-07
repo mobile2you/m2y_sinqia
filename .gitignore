@@ -20,6 +20,7 @@ test_bkp.rb
 transfer.rb
 test.rb
 documents.rb
+addresses.rb
 
 ## Specific to RubyMotion:
 .dat*
