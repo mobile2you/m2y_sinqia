@@ -42,4 +42,6 @@ module M2ySinqia
   ADD_KIT = "/BJ79M02/BJ79M02/BJ79SS0101B/kitdoc"
   CHECK_KIT = "/BJ79M02/BJ79M02/BJ79SS0101B/consultaKit"
   SEND_PROPOSAL = "/BJ79M02/BJ79M02/BJ79SS0101A/proposta"
+
+  CHECK_ADDRESS = "/BJ01M06/clientesEndereco/pesquisa"
 end

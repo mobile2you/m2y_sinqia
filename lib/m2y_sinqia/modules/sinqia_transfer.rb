@@ -25,7 +25,7 @@ module M2ySinqia
       sinqia_body[:nrSeqDes] = 0
       sinqia_body[:cdOrigem] = 24556
       sinqia_body[:nrDocCre] = 9
-      sinqia_body[:cdFin] = 1
+      sinqia_body[:cdFin] = 30
       sinqia_body[:nrSeq] = 0
       sinqia_body[:dsHist] = ''
       sinqia_body[:dsHistC] = ''
