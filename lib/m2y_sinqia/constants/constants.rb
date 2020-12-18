@@ -1,5 +1,5 @@
 module M2ySinqia
-  
+
   #envs
   HOMOLOGATION = "hml"
   PRODUCTION = "prd"
@@ -19,7 +19,7 @@ module M2ySinqia
   ### Paths
 
   #account
-  
+
   DEPOSIT_PATH = "v1/accounts/deposits"
   PAYMENT_PATH = "v1/payments"
 
@@ -44,4 +44,5 @@ module M2ySinqia
   SEND_PROPOSAL = "/BJ79M02/BJ79M02/BJ79SS0101A/proposta"
 
   CHECK_ADDRESS = "/BJ01M06/clientesEndereco/pesquisa"
+  USER_ADDRESS_PATH = "/BJ01M06/user"
 end
