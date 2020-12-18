@@ -36,6 +36,9 @@ module M2ySinqia
       sinqia_body[:nrCpfcnpj] = body[:beneficiary][:docIdCpfCnpjEinSSN]
       sinqia_body[:nrAgedes] = body[:beneficiary][:agency]
       sinqia_body[:cdCtades] = body[:beneficiary][:account]
+      if !body[:beneficiary][:accountDigit].nil?
+        sinqia_body[:cdCtades] = "#{sinqia_body[:cdCtades]}#{body[:beneficiary][:accountDigit]}".to_i
+      end
       sinqia_body[:nmFav] = body[:beneficiary][:name]
       sinqia_body[:nmApel] = body[:beneficiary][:name]
       sinqia_body[:dsPesq] = body[:beneficiary][:name]

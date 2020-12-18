@@ -33,6 +33,13 @@ module M2ySinqia
       sinqia_body[:nrCpfCnpj] = body[:beneficiary][:docIdCpfCnpjEinSSN]
       sinqia_body[:nrAgeDes] = body[:beneficiary][:agency]
       sinqia_body[:nrCtaDes] = body[:beneficiary][:account]
+      
+      #adicionando DV
+      if !body[:beneficiary][:accountDigit].nil?
+        sinqia_body[:nrCtaDes] = "#{sinqia_body[:nrCtaDes]}#{body[:beneficiary][:accountDigit]}".to_i
+      end
+
+
       sinqia_body[:nmFavore] = body[:beneficiary][:name]
       sinqia_body[:nrInst] = getInstitution
 
