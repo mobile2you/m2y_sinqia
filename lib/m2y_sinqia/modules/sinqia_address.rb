@@ -26,6 +26,7 @@ module M2ySinqia
 
     def getAddresses(body)
       headers = getAddressHeaders
+      body[:nrInst] = getInstitution
       response = @request.post(address_url + CHECK_ADDRESS, body, headers)
       puts response
       SinqiaModel.new(response)
