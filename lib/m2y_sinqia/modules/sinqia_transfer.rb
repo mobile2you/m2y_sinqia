@@ -19,7 +19,20 @@ module M2ySinqia
       sinqia_body[:cdCta] = body[:cdCta]
       sinqia_body[:nrAgen] = body[:nrAgen]
       sinqia_body[:vlLanc] = body[:value]
-      sinqia_body[:dtLanc] = Time.now.strftime("%Y%m%d")
+
+      # if Time.now.utc.hour > 20
+      #   date = DateTime.now.next_day
+      # else
+        date = DateTime.now
+      # end
+
+      # if date.wday == 6
+      #   date = date.next_day.next_day
+      # elsif date.wday == 0
+      #   date = date.next_day
+      # end
+
+      sinqia_body[:dtLanc] = date.strftime("%Y%m%d")
       sinqia_body[:tpTransf] = is_ted ? 2 : 3
       sinqia_body[:tpCtaFav] = 'CC'
       sinqia_body[:nrSeqDes] = 0
@@ -33,7 +46,7 @@ module M2ySinqia
       sinqia_body[:nrCpfCnpj] = body[:beneficiary][:docIdCpfCnpjEinSSN]
       sinqia_body[:nrAgeDes] = body[:beneficiary][:agency]
       sinqia_body[:nrCtaDes] = body[:beneficiary][:account]
-      
+
       #adicionando DV
       if !body[:beneficiary][:accountDigit].nil?
         sinqia_body[:nrCtaDes] = "#{sinqia_body[:nrCtaDes]}#{body[:beneficiary][:accountDigit]}".to_i

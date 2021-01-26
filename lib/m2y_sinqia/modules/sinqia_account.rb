@@ -42,10 +42,10 @@ module M2ySinqia
       if !transactions.nil?
         transactions.each do |transaction|
           transaction["dataOrigem"] = transaction["dtLanc"]
-          transaction["descricaoAbreviada"] = transaction["dsLanc"]
+          transaction["descricaoAbreviada"] = transaction["dsLanc"] + (transaction["nmFav"].nil? ? "" : transaction["nmFav"])
           transaction["idEventoAjuste"] = transaction["idTrans"]
           transaction["codigoMCC"] = transaction["idTrans"]
-          transaction["nomeFantasiaEstabelecimento"] = transaction["dsLanc"]
+          transaction["nomeFantasiaEstabelecimento"] = transaction["descricaoAbreviada"]
           transaction["valorBRL"] = transaction["vlLanc"].to_f #/100.0
           transaction["flagCredito"] = transaction["tpSinal"] == "C" ? 1 : 0
         end
