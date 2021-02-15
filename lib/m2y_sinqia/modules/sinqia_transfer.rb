@@ -27,7 +27,7 @@ module M2ySinqia
         date = DateTime.now
       end
 
-      if date.utc.hour > 20
+      if date.hour > 20
         date = DateTime.now.next_day
       end
 
