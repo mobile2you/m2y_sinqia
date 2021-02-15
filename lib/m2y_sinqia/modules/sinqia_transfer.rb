@@ -7,7 +7,7 @@ module M2ySinqia
     end
 
 
-    def bankTransfers(body, is_ted)
+    def bankTransfers(body, is_ted, date = nil)
       if !checkFav(body)
         addFav(body)
       end
@@ -23,14 +23,20 @@ module M2ySinqia
       # if Time.now.utc.hour > 20
       #   date = DateTime.now.next_day
       # else
+      if date.nil?
         date = DateTime.now
-      # end
+      end
 
-      # if date.wday == 6
-      #   date = date.next_day.next_day
-      # elsif date.wday == 0
-      #   date = date.next_day
-      # end
+      if date.utc.hour > 20
+        date = DateTime.now.next_day
+      end
+
+
+      if date.wday == 6
+        date = date.next_day.next_day
+      elsif date.wday == 0
+        date = date.next_day
+      end
 
       sinqia_body[:dtLanc] = date.strftime("%Y%m%d")
       sinqia_body[:tpTransf] = is_ted ? 2 : 3

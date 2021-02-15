@@ -29,7 +29,7 @@ module M2ySinqia
     end
 
 
-    def getTransactions(params)
+    def getTransactions(params, with_future = true)
       params[:nrSeq] = 0
       params[:nrInst] = getInstitution
       if !params[:page].nil? && params[:page] > 0
@@ -49,6 +49,37 @@ module M2ySinqia
           transaction["valorBRL"] = transaction["vlLanc"].to_f #/100.0
           transaction["flagCredito"] = transaction["tpSinal"] == "C" ? 1 : 0
         end
+      else
+        transactions = []
+      end
+
+      (with_future ? getFutureTransactions(params) : [] ) + transactions
+    end
+
+    def getFutureTransactions(params)
+      params[:nrSeq] = 0
+      params[:dtFin] = 20300221
+      params[:nrInst] = getInstitution
+      if !params[:page].nil? && params[:page] > 0
+        transactions = []
+      else
+        response = @request.post(@url + FUTURE_EXTRACT_PATH, params)
+        transactions = response["listaLancFuturos"]
+      end
+
+      # fixing cdt_fields
+      if !transactions.nil?
+        transactions.each do |transaction|
+          transaction["dataOrigem"] = transaction["dtLancft"]
+          transaction["descricaoAbreviada"] = transaction["dsHist"] + (transaction["nmFav"].nil? ? "" : transaction["nmFav"])
+          transaction["idEventoAjuste"] = transaction["idTrans"]
+          transaction["codigoMCC"] = transaction["idMovto"]
+          transaction["nomeFantasiaEstabelecimento"] = transaction["descricaoAbreviada"]
+          transaction["valorBRL"] = transaction["vlLanc"].to_f #/100.0
+          transaction["flagCredito"] = transaction["tpSinal"] == "C" ? 1 : 0
+        end
+      else
+        transactions = []
       end
       transactions
     end
