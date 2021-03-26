@@ -88,6 +88,13 @@ module M2ySinqia
       SinqiaModel.new(response)
     end
 
+    def getBankTransfersDetails(params)
+      params[:nrSeq] = 0
+      params[:nrInst] = getInstitution
+      response = @request.post(@url + RECEIPTS_DETAILS, params)
+      SinqiaModel.new(response)
+    end
+
     def findReceipt(params)
       params[:nrSeq] = 0
       params[:nrInst] = getInstitution
