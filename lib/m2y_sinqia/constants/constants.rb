@@ -38,7 +38,7 @@ module M2ySinqia
   TRANSFER_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0101K/efetuaLancamentoTransferencia"
   ADD_FAV_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102O/manutencaoCadastrarFavorecido"
   CHECK_FAV_PATH = "/API/BJ08M01/BJ08M01/BJ08SS0102O/manutencaoListarFavorecidos"
-  RECEIPTS_DETAILS = "/API/BJ08M01/BJ08M01/J08SS0101O/consultaComprovanteDetalhados"
+  RECEIPTS_DETAILS = "/API/BJ08M01/BJ08M01/BJ08SS0101O/consultaComprovanteDetalhados"
 
   #DEG
   ADD_KIT = "/BJ79M02/BJ79M02/BJ79SS0101B/kitdoc"
